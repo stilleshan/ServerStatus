@@ -1,8 +1,12 @@
 # ServerStatus
 ## 简介
 ServerStatus 在 GitHub 上已经有各种版本,本项目是基于 [ToyoDAdoubi/ServerStatus-Toyo](https://github.com/ToyoDAdoubi/ServerStatus-Toyo) 一键脚本项目,并整合网友制作的[美化主题](https://www.hostloc.com/thread-494384-1-1.html),打包为 docker 镜像,方便一键安装和迁移.
+> *docker image support for X86 and ARM*
 
 ![screenshot](https://raw.githubusercontent.com/stilleshan/ServerStatus/master/screenshot.jpg)
+
+## 更新
+**2021-06-06** 更新 docker 镜像同时支持 X86 和 ARM
 
 ## 部署
 ### 创建配置文件

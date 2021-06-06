@@ -1,6 +1,7 @@
-FROM ubuntu:latest as builder
+FROM ubuntu:bionic-20200112 as builder
 MAINTAINER Stille <stille@ioiox.com>
 
+ENV VERSION 2.0
 WORKDIR /
 
 COPY . /
@@ -9,7 +10,7 @@ RUN apt-get update && \
     /bin/bash -c '/bin/echo -e "1\n\nn\n" | ./status.sh' && \
     cp -rf /web /usr/local/ServerStatus/
 
-FROM nginx:latest
+FROM nginx:1.17.8
 MAINTAINER Stille <stille@ioiox.com>
 
 COPY --from=builder /usr/local/ServerStatus/server /ServerStatus/server/
