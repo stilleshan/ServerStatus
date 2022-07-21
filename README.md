@@ -9,25 +9,36 @@ ServerStatus 在 GitHub 上已经有各种版本,本项目是基于 [ToyoDAdoubi
 **2021-06-06** 更新 docker 镜像同时支持 X86 和 ARM
 
 ## 部署
-### 创建配置文件
+### docker 部署
 推荐直接 **git clone** 本仓库到服务器 **/root** 目录内.或者手动下载仓库中的 **config.json** 至 **/root/ServerStatus/** 目录内.
 ```shell
 cd /root
 git clone https://github.com/stilleshan/ServerStatus.git
 ```
 
-### 启动容器
 示例 **8888** 端口为 Web 访问端口, **35601** 为客户端通信端口,根据需求自行修改映射端口.注意防火墙需放行此端口.
 ```shell
-docker run -d --name=serverstatus --restart=always -p 8888:80 -p 35601:35601 -v ~/ServerStatus/config.json:/ServerStatus/server/config.json stilleshan/serverstatus
+docker run -d --name=serverstatus --restart=always \
+  -p 8888:80 \
+  -p 35601:35601 \
+  -v ~/ServerStatus/config.json:/ServerStatus/server/config.json \
+  stilleshan/serverstatus
 ```
 
+### docker compose 部署
+```shell
+cd /root
+git clone https://github.com/stilleshan/ServerStatus.git
+cd ServerStatus
+docker-compose up -d
+```
+
+## 使用
 ### 访问地址
 ```
 http://服务器IP:8888
 ```
 > 使用域名和 HTTPS 协议可配置 Nginx 反向代理
-
 
 ### 配置
 **config.json** 为服务器端配置文件,默认已经添加示例配置,可以根据示例格式修改,删除或者增加服务器.修改完毕后重启容器.
@@ -38,7 +49,12 @@ docker restart serverstatus
 ### 自定义前端页面
 上述默认启动命令没有挂载 web 目录,如需自定义修改前端页面,需 **git clone** 本仓库到服务器 **/root** 目录内,执行以下命令挂载 web 目录.
 ```shell
-docker run -d --name=serverstatus --restart=always -p 8888:80 -p 35601:35601 -v ~/ServerStatus/config.json:/ServerStatus/server/config.json -v ~/ServerStatus/web:/usr/share/nginx/html stilleshan/serverstatus
+docker run -d --name=serverstatus --restart=always \
+  -p 8888:80 \
+  -p 35601:35601 \
+  -v ~/ServerStatus/config.json:/ServerStatus/server/config.json \
+  -v ~/ServerStatus/web:/usr/share/nginx/html \
+  stilleshan/serverstatus
 ```
 
 ### 客户端
