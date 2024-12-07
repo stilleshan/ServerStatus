@@ -65,42 +65,42 @@ check_pid_client(){
 }
 Download_Server_Status_server(){
 	cd "/tmp"
-	wget -N --no-check-certificate "https://github.com/ToyoDAdoubi/ServerStatus-Toyo/archive/master.zip"
+	wget -N --no-check-certificate "https://github.com/stilleshan/ServerStatus/archive/master.zip"
 	[[ ! -e "master.zip" ]] && echo -e "${Error} ServerStatus 服务端下载失败 !" && exit 1
 	unzip master.zip
 	rm -rf master.zip
-	[[ ! -e "/tmp/ServerStatus-Toyo-master" ]] && echo -e "${Error} ServerStatus 服务端解压失败 !" && exit 1
-	cd "/tmp/ServerStatus-Toyo-master/server"
+	[[ ! -e "/tmp/ServerStatus-master" ]] && echo -e "${Error} ServerStatus 服务端解压失败 !" && exit 1
+	cd "/tmp/ServerStatus-master/server"
 	make
-	[[ ! -e "sergate" ]] && echo -e "${Error} ServerStatus 服务端编译失败 !" && cd "${file_1}" && rm -rf "/tmp/ServerStatus-Toyo-master" && exit 1
+	[[ ! -e "sergate" ]] && echo -e "${Error} ServerStatus 服务端编译失败 !" && cd "${file_1}" && rm -rf "/tmp/ServerStatus-master" && exit 1
 	cd "${file_1}"
 	[[ ! -e "${file}" ]] && mkdir "${file}"
 	if [[ ! -e "${server_file}" ]]; then
 		mkdir "${server_file}"
-		mv "/tmp/ServerStatus-Toyo-master/server/sergate" "${server_file}/sergate"
-		mv "/tmp/ServerStatus-Toyo-master/web" "${web_file}"
+		mv "/tmp/ServerStatus-master/server/sergate" "${server_file}/sergate"
+		mv "/tmp/ServerStatus-master/web" "${web_file}"
 	else
 		if [[ -e "${server_file}/sergate" ]]; then
 			mv "${server_file}/sergate" "${server_file}/sergate1"
-			mv "/tmp/ServerStatus-Toyo-master/server/sergate" "${server_file}/sergate"
+			mv "/tmp/ServerStatus-master/server/sergate" "${server_file}/sergate"
 		else
-			mv "/tmp/ServerStatus-Toyo-master/server/sergate" "${server_file}/sergate"
-			mv "/tmp/ServerStatus-Toyo-master/web" "${web_file}"
+			mv "/tmp/ServerStatus-master/server/sergate" "${server_file}/sergate"
+			mv "/tmp/ServerStatus-master/web" "${web_file}"
 		fi
 	fi
 	if [[ ! -e "${server_file}/sergate" ]]; then
 		echo -e "${Error} ServerStatus 服务端移动重命名失败 !"
 		[[ -e "${server_file}/sergate1" ]] && mv "${server_file}/sergate1" "${server_file}/sergate"
-		rm -rf "/tmp/ServerStatus-Toyo-master"
+		rm -rf "/tmp/ServerStatus-master"
 		exit 1
 	else
 		[[ -e "${server_file}/sergate1" ]] && rm -rf "${server_file}/sergate1"
-		rm -rf "/tmp/ServerStatus-Toyo-master"
+		rm -rf "/tmp/ServerStatus-master"
 	fi
 }
 Download_Server_Status_client(){
 	cd "/tmp"
-	wget -N --no-check-certificate "https://raw.githubusercontent.com/ToyoDAdoubi/ServerStatus-Toyo/master/clients/status-client.py"
+	wget -N --no-check-certificate "https://raw.githubusercontent.com/stilleshan/ServerStatus/master/clients/status-client.py"
 	[[ ! -e "status-client.py" ]] && echo -e "${Error} ServerStatus 客户端下载失败 !" && exit 1
 	cd "${file_1}"
 	[[ ! -e "${file}" ]] && mkdir "${file}"
